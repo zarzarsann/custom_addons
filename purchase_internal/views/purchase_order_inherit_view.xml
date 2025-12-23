@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="replace">
+                <field
+                    name="product_id"
+                    widget="product_label_section_and_note_field"
+                    readonly="state in ('purchase', 'to approve', 'done', 'cancel') or is_downpayment"
+                    required="not display_type and not is_downpayment"
+                    optional="show"
+                    context="{'partner_id':parent.partner_id, 'quantity':product_qty, 'company_id': parent.company_id}"
+                    force_save="1" domain="[('seller_ids.partner_id', '=', parent.partner_id),('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', 'parent_of', parent.company_id)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

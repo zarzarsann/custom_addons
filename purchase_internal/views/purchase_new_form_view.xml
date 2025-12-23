@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- TREE VIEW -->
+    <record id="view_purchase_new_tree" model="ir.ui.view">
+        <field name="name">purchase.new.tree</field>
+        <field name="model">purchase.new</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+    <record id="view_purchase_new_form" model="ir.ui.view">
+        <field name="name">purchase.new.form</field>
+        <field name="model">purchase.new</field>
+        <field name="arch" type="xml">
+            <form string="Purchase New">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="active"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_purchase_new" model="ir.actions.act_window">
+        <field name="name">Purchase New</field>
+        <field name="res_model">purchase.new</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_purchase_new_tree"/>
+    </record>
+
+    <!-- MENU ROOT -->
+<!--    <menuitem id="menu_my_root" name="My Module"/>-->
+
+    <!-- MENU ITEM -->
+    <menuitem id="menu_purchase_new"
+              name="Purchase New"
+              parent="purchase.menu_procurement_management"
+              action="action_purchase_new" sequence="16"/>
+
+</odoo>
