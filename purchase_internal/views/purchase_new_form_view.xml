@@ -2,12 +2,14 @@
 <odoo>
 
     <!-- TREE VIEW -->
-    <record id="view_purchase_new_tree" model="ir.ui.view">
-        <field name="name">purchase.new.tree</field>
+    <record id="purchase_new_tree" model="ir.ui.view">
+        <field name="name">purchase.new.list</field>
         <field name="model">purchase.new</field>
+        <field name="priority" eval="1"/>
         <field name="arch" type="xml">
-            <list>
+            <list string="Purchase New">
                 <field name="name"/>
+                <field name="partner_id"/>
                 <field name="active"/>
             </list>
         </field>
@@ -21,13 +23,17 @@
             <form string="Purchase New">
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="active"/>
-                    </group>
-                    <group>
-                        <field name="description"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="description"/>
+                        </group>
                     </group>
                 </sheet>
+                <chatter/>
             </form>
         </field>
     </record>
@@ -36,12 +42,50 @@
     <record id="action_purchase_new" model="ir.actions.act_window">
         <field name="name">Purchase New</field>
         <field name="res_model">purchase.new</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="view_purchase_new_tree"/>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+
+    <!-- Filter -->
+    <record id="purchase_new_view_search" model="ir.ui.view">
+        <field name="name">purchase.new.select</field>
+        <field name="model">purchase.new</field>
+        <field name="arch" type="xml">
+            <search string="Search Purchase New">
+                <field name="name" string="New"
+                    filter_domain="['|', '|', ('name', 'ilike', self), ('partner_ref', 'ilike', self), ('partner_id', 'child_of', self)]"/>
+                <field name="partner_id" operator="child_of"/>
+                <group expand="0" string="Group By">
+                    <filter string="Vendor" name="vendor" domain="[]" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_purchase_new_kanban">
+        <field name="name">purchase.new.kanban</field>
+        <field name="model">purchase.new</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1" quick_create="false">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex align-items-baseline">
+                            <field name="partner_id" class="fw-bolder fs-5 me-2"/>
+                        </div>
+                        <footer class="align-items-end">
+                            <div class="d-flex flex-wrap gap-1 text-nowrap">
+                                <field name="name"/>
+                            </div>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
     </record>
 
     <!-- MENU ROOT -->
-<!--    <menuitem id="menu_my_root" name="My Module"/>-->
+    <!--    <menuitem id="menu_my_root" name="My Module"/>-->
 
     <!-- MENU ITEM -->
     <menuitem id="menu_purchase_new"
