@@ -8,6 +8,9 @@
                 <field name="customer_email" readonly="1" force_save="1"/>
                 <field name="customer_code"/>
             </xpath>
+            <xpath expr="//field[@name='validity_date']" position="before">
+                <field name="customer_phone"/>
+            </xpath>
         </field>
      </record>
 </odoo>

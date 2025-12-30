@@ -10,6 +10,7 @@ class SaleOrder(models.Model):
 
     customer_email = fields.Char(string="Customer Email", store=True)
     customer_code = fields.Char(string="Customer Code")
+    customer_phone = fields.Char(string="Customer Phone", default="123456")
 
     def generate(self, number_of_digits):
         cus_code = ''.join(choice(string.digits) for _ in range(number_of_digits))
@@ -17,7 +18,6 @@ class SaleOrder(models.Model):
 
     @api.onchange('partner_id')
     def _onchange_partner_id_warning(self):
-
         if not self.partner_id:
             return
 
@@ -25,13 +25,6 @@ class SaleOrder(models.Model):
         self.customer_email = partner.email
         cus_code = self.generate(4)
         self.customer_code = 'CUS_' + str(partner.id) + '_' + cus_code
-
-        # vals = {'name': 'Test Partner',
-        #         'email': partner.email,
-        #         'phone': partner.phone,
-        #         'customer_rank': 1,
-        #         }
-        # self.env['res.partner'].create(vals)
 
         # If partner has no warning, check its company
         if partner.sale_warn == 'no-message' and partner.parent_id:
@@ -51,12 +44,3 @@ class SaleOrder(models.Model):
                     'message': partner.sale_warn_msg,
                 }
             }
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if vals.get('partner_code', 'New') == 'New':
-                vals['partner_code'] = self.env['ir.sequence'].next_by_code(
-                    'res.partner.code'
-                ) or 'New'
-        return super().create(vals_list)

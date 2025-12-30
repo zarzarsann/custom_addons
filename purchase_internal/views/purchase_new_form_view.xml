@@ -21,10 +21,17 @@
         <field name="model">purchase.new</field>
         <field name="arch" type="xml">
             <form string="Purchase New">
+                <header>
+                    <button name="%(action_purchase_new_wizard)d" string="Wizard" type="action" class="btn-primary"/>
+<!--                    <button string="Cancel" special="cancel" class="btn-secondary"/>-->
+                    <button name="action_cancel" string="Cancel" type="object" class="btn-danger"/>
+                    <button name="action_confirm" string="Confirm" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,purchase" readonly="1"/>
+               </header>
                 <sheet>
                     <group>
                         <group>
-                            <field name="name"/>
+                            <field name="name" readonly="1" force_save="1"/>
                             <field name="partner_id"/>
                         </group>
                         <group>
@@ -32,8 +39,21 @@
                             <field name="description"/>
                         </group>
                     </group>
+
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="product_id" options="{'no_open': True, 'no_create': True}" class="oe_online"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="subtotal" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
-                <chatter/>
+               <chatter/>
             </form>
         </field>
     </record>
@@ -51,8 +71,7 @@
         <field name="model">purchase.new</field>
         <field name="arch" type="xml">
             <search string="Search Purchase New">
-                <field name="name" string="New"
-                    filter_domain="['|', '|', ('name', 'ilike', self), ('partner_ref', 'ilike', self), ('partner_id', 'child_of', self)]"/>
+                <field name="name" string="New"/>
                 <field name="partner_id" operator="child_of"/>
                 <group expand="0" string="Group By">
                     <filter string="Vendor" name="vendor" domain="[]" context="{'group_by': 'partner_id'}"/>
@@ -83,6 +102,39 @@
             </kanban>
         </field>
     </record>
+
+    <!-- Wizard View -->
+    <record id="view_purchase_new_wizard_form" model="ir.ui.view">
+        <field name="name">purchase.new.wizard.form</field>
+        <field name="model">purchase.new.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Confirmation">
+                <group>
+                    <field name="note"/>
+                    <field name="confirm"/>
+                </group>
+
+                <footer>
+                    <button name="action_confirm"
+                            string="Confirm"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            special="cancel"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_purchase_new_wizard" model="ir.actions.act_window">
+        <field name="name">Confirm Purchase</field>
+        <field name="res_model">purchase.new.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_purchase_new_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
 
     <!-- MENU ROOT -->
     <!--    <menuitem id="menu_my_root" name="My Module"/>-->
