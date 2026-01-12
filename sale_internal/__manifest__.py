@@ -10,8 +10,8 @@
     "Odoo Community Association (OCA)",
     "license": "LGPL-3",
     "installable": True,
-    "depends": ["base","sale"],
+    "depends": ["base","sale","report_xlsx"],
     "development_status": "Production/Stable",
-    "data": ["views/sale_order_inherit_view.xml"],
+    "data": ["views/sale_order_inherit_view.xml","report/new_sale_order_report_view.xml","report/new_sale_order_report_template.xml"],
     "sequence": 100,
 }

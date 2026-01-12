@@ -143,6 +143,6 @@
     <menuitem id="menu_purchase_new"
               name="Purchase New"
               parent="purchase.menu_procurement_management"
-              action="action_purchase_new" sequence="16"/>
+              action="action_purchase_new" sequence="16" groups="base.group_user"/>
 
 </odoo>

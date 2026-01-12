@@ -1,0 +1,38 @@
+<odoo>
+    <!-- QWeb template for Sale Order PDF -->
+    <template id="report_sale_order_custom_document">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <h2>Custom Sale Order</h2>
+                    <p><strong>Order Reference:</strong> <t t-esc="o.name"/></p>
+                    <p><strong>Customer:</strong> <t t-esc="o.partner_id.name"/></p>
+                    <p><strong>Date:</strong> <t t-esc="o.date_order"/></p>
+
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.order_line" t-as="line">
+                                <tr>
+                                    <td><t t-esc="line.product_id.name"/></td>
+                                    <td><t t-esc="line.product_uom_qty"/></td>
+                                    <td><t t-esc="line.price_unit"/></td>
+                                    <td><t t-esc="line.price_subtotal"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <p><strong>Total:</strong> <t t-esc="o.amount_total"/></p>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

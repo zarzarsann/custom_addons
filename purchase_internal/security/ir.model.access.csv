@@ -1,4 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_purchase_new,access_purchase_new,model_purchase_new,base.group_user,1,1,1,1
+access_purchase_new_user,purchase.new user,model_purchase_new,base.group_user,1,0,0,0
+access_purchase_new_officer,purchase.new officer,model_purchase_new,group_purchase_new_officer,1,1,0,0
+access_purchase_new_manager,purchase.new manager,model_purchase_new,group_purchase_new_manager,1,1,1,1
+
+access_purchase_new_line_user,purchase.new.line user,model_purchase_new_line,base.group_user,1,0,0,0
+access_purchase_new_line_officer,purchase.new.line officer,model_purchase_new_line,group_purchase_new_officer,1,1,0,0
+access_purchase_new_line_manager,purchase.new.line manager,model_purchase_new_line,group_purchase_new_manager,1,1,1,1
 purchase_internal.access_purchase_new_wizard,access_purchase_new_wizard,purchase_internal.model_purchase_new_wizard,base.group_user,1,1,1,0
-access_purchase_new_line_user,access.purchase.new.line.user,model_purchase_new_line,base.group_user,1,1,1,1
