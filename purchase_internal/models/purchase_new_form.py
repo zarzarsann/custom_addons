@@ -16,6 +16,15 @@ class PurchaseNew(models.Model):
     active = fields.Boolean(default=True)
     line_ids = fields.One2many('purchase.new.line','new_id', string='Lines')
 
+    def action_send_mail(self):
+        template = self.env.ref(
+            "purchase_internal.email_template_purchase_new_order",
+            raise_if_not_found=False
+        )
+        if template:
+            for order in self:
+                template.send_mail(order.id, force_send=True)
+
     def action_cancel(self):
         for record in self:
             record.state = 'cancel'

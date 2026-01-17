@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="action_report_purchase_xlsx" model="ir.actions.report">
+            <field name="name">Purchase Order XLSX</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">report.purchase_internal.report_purchase_xlsx</field>
+            <field name="report_file">Purchase_Order_Report</field>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_type">report</field>
+        </record>
+<!--        <record id="action_report_partner_xlsx" model="ir.actions.report">-->
+<!--            <field name="name">Partner Excel Report</field>-->
+<!--            <field name="model">res.partner</field>-->
+<!--            <field name="report_type">xlsx</field>-->
+<!--            <field name="report_name">your_module.report_partner_xlsx</field>-->
+<!--            <field name="report_file">PartnerReport</field>-->
+<!--            <field name="binding_model_id" ref="base.model_res_partner"/>-->
+<!--            <field name="binding_type">report</field>-->
+<!--        </record>-->
+    </data>
+</odoo>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <!-- TREE VIEW -->
+    <!-- LIST VIEW -->
     <record id="purchase_new_tree" model="ir.ui.view">
         <field name="name">purchase.new.list</field>
         <field name="model">purchase.new</field>
@@ -9,6 +9,7 @@
         <field name="arch" type="xml">
             <list string="Purchase New">
                 <field name="name"/>
+                <field name="description"/>
                 <field name="partner_id"/>
                 <field name="active"/>
             </list>
@@ -23,9 +24,10 @@
             <form string="Purchase New">
                 <header>
                     <button name="%(action_purchase_new_wizard)d" string="Wizard" type="action" class="btn-primary"/>
+                    <button name="action_send_mail" string="Send Mail" type="object" class="btn-primary"/>
 <!--                    <button string="Cancel" special="cancel" class="btn-secondary"/>-->
-                    <button name="action_cancel" string="Cancel" type="object" class="btn-danger"/>
                     <button name="action_confirm" string="Confirm" type="object"/>
+                    <button name="action_cancel" string="Cancel" type="object"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,sent,purchase" readonly="1"/>
                </header>
                 <sheet>
@@ -71,7 +73,7 @@
         <field name="model">purchase.new</field>
         <field name="arch" type="xml">
             <search string="Search Purchase New">
-                <field name="name" string="New"/>
+                <field name="name" string="Name"/>
                 <field name="partner_id" operator="child_of"/>
                 <group expand="0" string="Group By">
                     <filter string="Vendor" name="vendor" domain="[]" context="{'group_by': 'partner_id'}"/>

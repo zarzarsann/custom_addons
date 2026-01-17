@@ -1,4 +1,5 @@
 <odoo>
+<!--    Custom Layout View and Menu-->
     <record id="action_report_sale_order_custom" model="ir.actions.report">
         <field name="name">Custom Sale Order</field>
         <field name="model">sale.order</field>
@@ -18,5 +19,27 @@
               name="Custom Sale Orders"
               parent="menu_sale_reports_custom"
               action="action_report_sale_order_custom"
+              sequence="1"/>
+
+    <!--    Exist Layout View and Menu-->
+    <record id="action_report_sale_order_exist_layout" model="ir.actions.report">
+        <field name="name">Exist Layout Sale Order</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sale_internal.report_sale_order_exist_document</field>
+        <field name="report_file">sale_order_custom</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <menuitem id="menu_sale_reports_exist"
+              name="Exist Layout Sale Order Reports"
+              parent="sale.sale_menu_root"
+              sequence="10"/>
+
+    <menuitem id="menu_sale_order_exist_pdf"
+              name="Exist Layout Sale Order Reports"
+              parent="menu_sale_reports_exist"
+              action="action_report_sale_order_exist_layout"
               sequence="1"/>
 </odoo>
