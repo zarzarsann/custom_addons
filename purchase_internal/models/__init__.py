@@ -2,3 +2,4 @@
 from . import purchase_order_inherit
 from . import purchase_new_form
 from . import purchase_order_line
+from . import otp_expire
