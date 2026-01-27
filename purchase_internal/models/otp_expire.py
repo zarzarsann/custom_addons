@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from datetime import datetime, timedelta
 
 class GenerateOTP(models.Model):
     _name = 'generate.otp'
